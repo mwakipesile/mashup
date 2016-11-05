@@ -1,0 +1,21 @@
+<div class='matchup'>
+  <form action='/vote' method='post'>
+    <input name='winner' id='winner' type='hidden' value='<%= @image_id %>'>
+    <input name='loser' id='loser' type='hidden' value='<%= @image_id2 %>'>
+    <button type="submit" class="vote">
+      <img src='/uploads/<%= @image %>' />
+    </button>  
+  </form>
+  <p>Rating: <%= @rating %></p>
+</div>
+
+<div class='matchup'>
+  <form action='/vote' method='post'>
+    <input name='winner' id='winner' type='hidden' value='<%= @image_id2 %>'>
+    <input name='loser' id='loser' type='hidden' value='<%= @image_id %>'>
+    <button type="submit" class="vote">
+      <img src='/uploads/<%= @image2 %>' />
+    </button>  
+  </form>
+  <p>Rating: <%= @rating2 %></p>
+</div>

@@ -1,0 +1,15 @@
+.matchup {
+  width: 40%;
+  display: inline-block;
+  margin: 20px 30px;
+}
+
+form .vote img, .matchup form button {
+  width: 100%;
+  overflow: hidden;
+  vertical-align: middle;
+}
+
+.matchup form button, .matchup {
+  height: 400px;
+}
