@@ -1,0 +1,22 @@
+<form action='/users/signin' method='post'>
+  <dl>
+    <dt>
+      <label>Username:</label>
+    </dt>
+    <dd>
+      <input name='username' placeholder='Username' type='text' value='<%= params[:username] %>'>
+    </dd>
+  </dl>
+  <dl>
+    <dt>
+      <label>Password:</label>
+    </dt>
+    <dd>
+      <input name='password' placeholder='Password' type='password' value=''>
+    </dd>
+  </dl>
+  <fieldset class='actions'>
+    <input type='submit' value='Sign In'>
+    <a href='/'>Cancel</a>
+  </fieldset>
+</form>

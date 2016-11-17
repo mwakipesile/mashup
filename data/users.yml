@@ -20,3 +20,24 @@ karanga:
     cost: 10
     salt: "$2a$10$ZcZwTB6yUBsVi/1AE6uWLO"
     checksum: hBOjmiefafChbJgs9cA6eunJoz65TFe
+digya:
+  password: !ruby/string:BCrypt::Password
+    str: "$2a$10$bZq1Ai3D8mBkT8pjHnibwOzSYr3RPdpZ4SClPfDz9aifcGz53isea"
+    version: 2a
+    cost: 10
+    salt: "$2a$10$bZq1Ai3D8mBkT8pjHnibwO"
+    checksum: zSYr3RPdpZ4SClPfDz9aifcGz53isea
+kitoko:
+  password: !ruby/string:BCrypt::Password
+    str: "$2a$10$YXAUrw3pAVljPdv2Qav20.L9Zjo9S/5zgMoiomeFt/61aapeolwpq"
+    version: 2a
+    cost: 10
+    salt: "$2a$10$YXAUrw3pAVljPdv2Qav20."
+    checksum: L9Zjo9S/5zgMoiomeFt/61aapeolwpq
+mellarose:
+  password: !ruby/string:BCrypt::Password
+    str: "$2a$10$oQ1V4gmwXtYYOsJcvPyUuOzCgx8kc6/3EjGByLOgdXcgjifhvTX1O"
+    version: 2a
+    cost: 10
+    salt: "$2a$10$oQ1V4gmwXtYYOsJcvPyUuO"
+    checksum: zCgx8kc6/3EjGByLOgdXcgjifhvTX1O

@@ -1,4 +1,4 @@
-module Models
+module Model
   module FileHelpers
     def base_path
       File.expand_path('../../..', __FILE__)

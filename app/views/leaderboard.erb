@@ -1,0 +1,7 @@
+<div class='top-images'>
+  <% @top_images.each do |image| %>
+    <a href='/images/<%= image %>'>
+      <img src='/uploads/<%= image %>' />
+    </a>
+  <% end %>
+</div>

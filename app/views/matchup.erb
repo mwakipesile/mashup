@@ -1,21 +1,33 @@
-<div class='matchup'>
-  <form action='/vote' method='post'>
-    <input name='winner' id='winner' type='hidden' value='<%= @image_id %>'>
-    <input name='loser' id='loser' type='hidden' value='<%= @image_id2 %>'>
-    <button type="submit" class="vote">
-      <img src='/uploads/<%= @image %>' />
-    </button>  
-  </form>
-  <p>Rating: <%= @rating %></p>
+<div id='matchup'>
+  <div class='matchup'>
+    <form action='/vote' method='post'>
+      <input name='winner' id='winner' type='hidden' value='<%= @image_id %>'>
+      <input name='loser' id='loser' type='hidden' value='<%= @image_id2 %>'>
+      <button type="submit" class="vote">
+        <img src='/uploads/<%= @image %>' />
+      </button>  
+    </form>
+    <p>Rating: <%= @rating %></p>
+  </div>
+
+  <div class='matchup'>
+    <form action='/vote' method='post'>
+      <input name='winner' id='winner' type='hidden' value='<%= @image_id2 %>'>
+      <input name='loser' id='loser' type='hidden' value='<%= @image_id %>'>
+      <button type="submit" class="vote">
+        <img src='/uploads/<%= @image2 %>' />
+      </button>  
+    </form>
+    <p>Rating: <%= @rating2 %></p>
+  </div>
 </div>
 
-<div class='matchup'>
-  <form action='/vote' method='post'>
-    <input name='winner' id='winner' type='hidden' value='<%= @image_id2 %>'>
-    <input name='loser' id='loser' type='hidden' value='<%= @image_id %>'>
-    <button type="submit" class="vote">
-      <img src='/uploads/<%= @image2 %>' />
-    </button>  
-  </form>
-  <p>Rating: <%= @rating2 %></p>
-</div>
+<% content_for :leaderboard do %>
+  <div class='leaderboard'>
+    <a class='title' href='/images/top'>Leaderboard</a>
+    
+    <% @top_images.each do |image| %>
+      <span class='top-thumb'><a href='/images/<%= image %>'><img src='/uploads/<%= image %>' /></a></span>
+    <% end %>
+  </div>
+<% end %>

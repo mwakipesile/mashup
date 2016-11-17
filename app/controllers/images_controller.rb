@@ -11,4 +11,14 @@ class ImagesController < ApplicationController
 
     redirect('/')
   end
+
+  get '/images/top' do
+    @top_images = Image.fetch(*Rating.top_image_ids(20))
+    erb :leaderboard
+  end
+
+  get '/images/:filename' do |filename|
+    @image = filename
+    erb :image
+  end
 end

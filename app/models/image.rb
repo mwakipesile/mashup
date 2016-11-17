@@ -1,23 +1,26 @@
 class Image
-  extend Models::FileHelpers
+  extend Model::FileHelpers
 
   IMAGE_PATH = 'public/uploads'
   IMAGE_DATA_PATH = file_path('images.yml')
   USER_IMAGE_DATA_PATH = file_path('user_images.yml')
 
-  attr_reader :file, :user_id, :images_data, :image_id
+  attr_reader :file, :user_id, :images_data, :user_image_data, :image_id
 
   def initialize(file, user_id)
     @file = file
     @user_id = user_id
     @images_data = self.class.load_data(IMAGE_DATA_PATH) || {}
+    @user_image_data = self.class.load_data(USER_IMAGE_DATA_PATH) || {}
     @image_id = id
   end
 
-  def self.fetch(*ids)
-    data = load_data(IMAGE_DATA_PATH)
-    imgs = ids.each_with_object([]) { |id, arr| arr << data[id]['filename'] }
-    imgs.size > 1 ? imgs : imgs.first
+  class << self
+    def fetch(*ids)
+      data = load_data(IMAGE_DATA_PATH)
+      imgs = ids.each_with_object([]) { |id, arr| arr << data[id]['filename'] }
+      imgs.size > 1 ? imgs : imgs.first
+    end
   end
 
   def upload
@@ -40,8 +43,7 @@ class Image
   end
 
   def save_user_image_data
-    data = self.class.load_data(USER_IMAGE_DATA_PATH) || {}
-    data[user_id] = image_id
-    self.class.save(data, USER_IMAGE_DATA_PATH)
+    user_image_data[user_id] = image_id
+    self.class.save(user_image_data, USER_IMAGE_DATA_PATH)
   end
 end
