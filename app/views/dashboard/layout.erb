@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>CMS</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans">
+    <link rel="stylesheet" href="/css/whitespace-reset.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <script src="/js/jquery-3.1.1.js"></script>
+    <script src="/js/application.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1><a href='/'>kittymash</a></h1>
+      <div class='actions'>
+        <% path = request.path_info %>
+        <% if path.casecmp('/files/upload') != 0 %>
+          <a class='upload' href='/files/upload'>Upload</a>
+        <% end %>
+
+        <% if signed_in? %>
+          <span>Signed in as <%= session[:username] %></span>
+          <form action='/users/signout' method='post' class='signout'>
+            <button type='submit'>Sign Out</button>
+          </form> 
+        <% else %>
+          <% if path.casecmp('/users/signin') != 0 %>
+            <a class='signin' href='/users/signin'>Sign In</a>
+          <% end %>
+          <% if path.casecmp('/users/signup') != 0 %>
+            <a class='signup' href='/users/signup'>Sign Up</a>
+          <% end %>
+        <% end %>
+      </div>
+      <h2 id='dashboard'>Dashboard</h2>
+    </header>
+
+    <main>
+      <div class='dashboard-tabs'>
+        <a href='/dashboard/users'>Users</a>
+        <a href='/dashboard/images'>Images</a>
+        <a href='/dashboard/images/upload'>Upload</a>
+        <a href='/dashboard/contests'>Contests</a>
+      </div>
+      <% if session[:message] %>
+        <div class='flash message'>
+          <p><%= session.delete(:message) %></p>
+        </div>
+      <% end %>
+      
+      <%== yield %>
+      <script>
+      // HTML5 file upload
+      // Check for the various File API support.
+      if (window.File && window.FileReader && window.FileList && window.Blob) {
+          function handleFileSelect(evt) {
+            var files = evt.target.files; // FileList object
+
+            // Loop through the FileList and render image files as thumbnails.
+            for (var i = 0, f; f = files[i]; i++) {
+
+              // Only process image files.
+              if (!f.type.match('image.*')) {
+                continue;
+              }
+
+              var reader = new FileReader();
+
+              // Closure to capture the file information.
+              reader.onload = (function(theFile) {
+                return function(e) {
+                  // Render thumbnail.
+                  var span = document.createElement('span');
+                  span.innerHTML = ['<img class="thumb" src="', e.target.result,
+                                    '" title="', escape(theFile.name), '"/>'].join('');
+                  document.getElementById('thumbnails').insertBefore(span, null);
+
+                  var filename = document.createElement('input');
+                  $(filename).attr({
+                  'name': escape(theFile.name),
+                  'type': 'text',
+                  'value': escape(theFile.name)
+                  });
+                  document.getElementById('thumbnails').insertBefore(filename, null);
+                };
+              })(f);
+
+              // Read in the image file as a data URL.
+              reader.readAsDataURL(f);
+            }
+          }
+
+          document.getElementById('files').addEventListener('change', handleFileSelect, false);
+        }else{
+          alert('The File APIs are not fully supported in this browser.');
+        }
+      </script>
+    </main>
+  </body>

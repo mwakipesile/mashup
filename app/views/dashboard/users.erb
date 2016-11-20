@@ -1,0 +1,11 @@
+<ul id='users'>
+  <% @users.each do |user| %>
+    <li class='<%# todo_class(todo) %>'>
+      <a class='user' href='/dashboard/users/<%= user %>'><%= user %></a>
+        <form action='/dashboard/users/<%= user %>/delete' method="post" class="delete">
+          <button type="submit">Delete</button>
+        </form>
+    </li>
+  <% end %>
+</ul>
+

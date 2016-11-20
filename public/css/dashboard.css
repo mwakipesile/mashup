@@ -1,0 +1,126 @@
+a {
+  color: inherit;
+  text-decoration: none; 
+}
+
+body {
+  font: normal 20px "PT Sans", Helvetica, Arial, sans-serif;
+  color: #3f3f3f;
+  background: #ffffff; 
+}
+
+body > header h1 {
+  display: inline-block;
+  width: 38%;
+  font-size: 30px;
+  color: #dd5f4f; 
+}
+body > header #dashboard {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  font-size: 24px; 
+}
+
+body > header .actions {
+  display: inline-block;
+  width: 50%;
+  margin: 20px 10px;
+  text-align: right;
+  float: right;
+}
+
+body > header .actions a, .leaderboard a.title {
+  -webkit-transition: color 200ms ease;
+  -moz-transition: color 200ms ease;
+  -o-transition: color 200ms ease; 
+}
+
+body > header .actions a:hover, .dashboard-tabs a:hover {
+  color: #dd5f4f; 
+}
+
+body > header .actions span, body > header .actions .signout {
+  display: inline-block;
+}
+
+main {
+  display: block;
+  max-width: 1400px;
+  margin: 0 30px;
+}
+
+.dashboard-tabs {
+  width: 100%;
+  text-align: center;
+}
+.dashboard-tabs a {
+  padding: 0 12px;
+  text-align: center;
+  display: inline-block;
+}
+
+#users {
+  display: block;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 10px 0 50px 0;
+}
+
+#users > li {
+  position: relative;
+  padding: 10px 0;
+  margin: 0 0 25px 60px;
+  border-bottom: 1px solid #d7d7d7;
+  list-style: none;
+}
+
+#users > li a {
+  position: relative;
+  z-index: 1;
+  overflow: hidden; 
+}
+
+#users > li form {
+  position: absolute;
+  top: 50%;
+  z-index: 1; 
+}
+
+#users > li .delete {
+  right: 20px;
+  width: 24px;
+  height: 27px;
+  margin: -12px 0 0 0;
+  opacity: 0.4;
+  background: transparent url("../images/icon_delete.png") 0 3px no-repeat; 
+}
+
+#users > li .delete [type="submit"] {
+  width: 24px;
+  height: 24px;
+  color: transparent;
+  background-color: transparent;
+  cursor: pointer;
+  border: none; 
+}
+
+#users > li .delete:hover {
+  opacity: 1; 
+}
+
+
+.single-image {
+  text-align: center;
+}
+
+.top-images {
+  text-align: center;
+  max-width: 500px;
+  margin: 5px auto;
+}
+
+.top-images a img {
+  width: 100%;
+  padding: 20px 0;
+}
