@@ -5,3 +5,50 @@
 admin:
   current_matchup_ids: []
   current_matchups_set_id: 10
+kitoko:
+  current_matchup_ids:
+  - 17
+  - 10
+  - 4
+  - 29
+  - 33
+  - 15
+  - 53
+  - 59
+  current_matchups_set_id: 2
+mpya:
+  current_matchup_ids:
+  - 3
+  - 9
+  - 21
+  - 12
+  - 22
+  - 25
+  - 49
+  current_matchups_set_id: 0
+mpya0:
+  current_matchup_ids:
+  - 34
+  - 3
+  - 9
+  - 21
+  - 12
+  - 22
+  - 1
+  - 25
+  - 39
+  - 64
+  current_matchups_set_id: 0
+digya:
+  current_matchup_ids:
+  - 34
+  - 3
+  - 9
+  - 12
+  - 22
+  - 1
+  - 25
+  - 39
+  - 49
+  - 64
+  current_matchups_set_id: 0

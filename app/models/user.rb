@@ -9,12 +9,21 @@ class User
       @users
     end
 
+    def all_names
+      all.keys
+    end
+
     def fetch(username)
       @users[username]
     end
 
     def create(username, password)
       @users[username] = { 'password' => password }
+      save(@users, CREDENTIALS_PATH)
+    end
+
+    def delete(username)
+      @users.delete(username)
       save(@users, CREDENTIALS_PATH)
     end
   end

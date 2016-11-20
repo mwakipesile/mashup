@@ -25,13 +25,17 @@ module Controller
       !!session[:username]
     end
 
+    def admin?
+      session[:username] && session[:username].casecmp('admin').zero?
+    end
+
     def redirect_with_message(route, *message)
       flash_message(*message)
       redirect(route)
     end
 
-    def redirect_unauthorized_user
-      redirect_with_message(request.referrer, 'restricted') unless signed_in?
+    def redirect_unauthorized_user(message = 'restricted')
+      redirect_with_message(request.referrer, message) unless signed_in?
     end
 
     def redirect_logged_in_user

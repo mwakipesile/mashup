@@ -29,6 +29,7 @@ class MashupController < ApplicationController
   use UserController
   use ImagesController
   use VoteController
+  use DashboardController
 
   get('/') { redirect('/matchup') }
 
