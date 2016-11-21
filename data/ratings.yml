@@ -15,8 +15,8 @@
   rating: 2174.9800000000073
   match_count: 459
 6:
-  rating: 1744.1399999999983
-  match_count: 447
+  rating: 1727.4299999999982
+  match_count: 448
 7:
   rating: 1993.2599999999993
   match_count: 279
@@ -33,5 +33,11 @@
   rating: 1588.0499999999997
   match_count: 124
 12:
-  rating: 1614.6399999999996
-  match_count: 13
+  rating: 1602.1299999999997
+  match_count: 14
+13:
+  rating: 1612.51
+  match_count: 1
+14:
+  rating: 1616.71
+  match_count: 1

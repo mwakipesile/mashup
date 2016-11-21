@@ -30,6 +30,10 @@ class DashboardController < ApplicationController
 
   post '/dashboard/users/:username/delete' do |username|
     User.delete(username)
+    Matchup.delete_voter(username)
+    Image.delete_user_images(username)
+
+    session.delete(:username) if session[:username].casecmp(username).zero?
     redirect(request.referrer)
   end
 end

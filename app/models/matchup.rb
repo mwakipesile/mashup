@@ -70,6 +70,11 @@ class Matchup
       @voters[user_id]['current_matchup_ids']
     end
 
+    def delete_voter(user_id)
+      @voters.delete(user_id)
+      save(@voters, VOTERS_PATH)
+    end
+
     def set_matchup_ids
       @matchup_ids = matchup_ids
       save_matchup_ids

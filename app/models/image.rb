@@ -21,6 +21,38 @@ class Image
       imgs = ids.each_with_object([]) { |id, arr| arr << data[id]['filename'] }
       imgs.size > 1 ? imgs : imgs.first
     end
+
+    def delete_user_images(user_id)
+      images_data = load_data(IMAGE_DATA_PATH) || {}
+      user_images_data = load_data(USER_IMAGE_DATA_PATH) || {}
+      return unless user_images_data[user_id]
+
+      user_images_data[user_id].each do |image_id|
+        image_data = images_data.delete(image_id)
+        filename = image_data['filename']
+        File.delete(File.join(IMAGE_PATH, filename))
+      end
+
+      user_images_data.delete(user_id)
+
+      save(user_images_data, USER_IMAGE_DATA_PATH)
+      save(images_data, IMAGE_DATA_PATH)
+    end
+
+    def delete(image_id)
+      images_data = load_data(IMAGE_DATA_PATH) || {}
+      user_images_data = load_data(USER_IMAGE_DATA_PATH) || {}
+      return unless images_data[image_id]
+
+      user_id = images_data[image_id]['user_id']
+
+      File.delete(File.join(IMAGE_PATH, images_data[image_id]['filename']))
+      images_data.delete(image_id)
+      user_images_data[user_id].delete(image_id)
+
+      save(user_images_data, USER_IMAGE_DATA_PATH)
+      save(images_data, IMAGE_DATA_PATH)
+    end
   end
 
   def upload
@@ -43,7 +75,9 @@ class Image
   end
 
   def save_user_image_data
-    user_image_data[user_id] = image_id
+    user_imgs = user_image_data[user_id]
+
+    user_imgs ? user_imgs << image_id : user_image_data[user_id] = [image_id]
     self.class.save(user_image_data, USER_IMAGE_DATA_PATH)
   end
 end
