@@ -1,0 +1,10 @@
+<% @user_images.each do |image_id, image| %>
+  <li class='image'>
+    <img src='/uploads/<%= image %>'>
+
+    <form action='/contests/<%= @contest_id %>/submit' method="post" class="submit">
+      <input name='image_id' type='hidden' value='<%= image_id %>'>
+      <button type="submit">Submit image to this contest</button>
+    </form>
+  </li>
+<% end %>

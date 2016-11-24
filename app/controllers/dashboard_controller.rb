@@ -36,4 +36,15 @@ class DashboardController < ApplicationController
     session.delete(:username) if session[:username].casecmp(username).zero?
     redirect(request.referrer)
   end
+
+  get '/dashboard/images' do
+    @images = Image.all
+    derb :images
+  end
+
+  post '/dashboard/images/:image_id/delete' do |image_id|
+    Image.delete(image_id)
+
+    redirect(request.referrer)
+  end
 end

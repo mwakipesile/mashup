@@ -6,21 +6,27 @@ class Rating
   DEFAULT_TOP_COUNT = 5
   K = 24
 
-  @ratings = load_data(RATINGS_PATH)
-
 
   class << self
-    def initial(id)
-      @ratings[id] = { 'rating' => INITIAL_RATING, 'match_count' => 0 }
-      save(@ratings, RATINGS_PATH)
+    def load_ratings(contest_id)
+      @ratings_path = data_path('ratings.yml', contest_id)
+      @ratings = load_data(@ratings_path) || {}
     end
 
-    def update(winner_id, loser_id)
+    def initial(id, contest_id)
+      load_ratings(contest_id)
+      @ratings[id] = { 'rating' => INITIAL_RATING, 'match_count' => 0 }
+      save(@ratings, @ratings_path)
+    end
+
+    def update(winner_id, loser_id, contest_id)
       @winner_id = winner_id.to_i
       @loser_id = loser_id.to_i
+
+      load_ratings(contest_id)
       update_ratings
       update_match_count
-      save(@ratings, RATINGS_PATH)
+      save(@ratings, @ratings_path)
     end
 
     def update_ratings
@@ -47,7 +53,8 @@ class Rating
       @ratings[@loser_id]['match_count'] += 1
     end
 
-    def fetch(*ids)
+    def fetch(*ids, contest_id)
+      load_ratings(contest_id)
       ratings = ids.each_with_object([]) do |id, ratings_arr|
         ratings_arr << @ratings[id.to_i]['rating'].round(2)
       end
@@ -55,7 +62,8 @@ class Rating
       ratings.size > 1 ? ratings : ratings.first
     end
 
-    def top_image_ids(n = DEFAULT_TOP_COUNT)
+    def top_image_ids(contest_id, n = DEFAULT_TOP_COUNT)
+      load_ratings(contest_id)
       @ratings.keys.sort_by { |id| -@ratings[id]['rating'] }.first(n)
     end
   end

@@ -1,1 +1,7 @@
-<%= @testing %>
+<ul id='contests'>
+  <% @contests.each do |id, name| %>
+    <li class='contest'>
+      <a href='/contests/<%= id %>'><%= name %></a>
+    </li>
+  <% end %>
+</ul>

@@ -22,7 +22,9 @@
           <span>Signed in as <%= session[:username] %></span>
           <form action='/users/signout' method='post' class='signout'>
             <button type='submit'>Sign Out</button>
-          </form> 
+          </form>
+
+          <a class='create-contest' href='/contests/create'>Create Contest</a>
         <% else %>
           <% if path.casecmp('/users/signin') != 0 %>
             <a class='signin' href='/users/signin'>Sign In</a>
@@ -51,8 +53,9 @@
       <% end %>
 
       <%== yield_content :leaderboard %>
-      
+
       <%== yield %>
+      <%== yield_content :submission %>
       <script>
       // HTML5 file upload
       // Check for the various File API support.

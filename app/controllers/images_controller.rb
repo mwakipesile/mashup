@@ -7,7 +7,7 @@ class ImagesController < ApplicationController
     # name = params[:name]
     @image = Image.new(file, user_id)
     @image.upload
-    Matchup.submit(@image.id)
+    #Matchup.submit(@image.id)
 
     redirect('/')
   end

@@ -1,35 +1,50 @@
 class Matchup
   extend Model::FileHelpers
 
-  IMAGE_DATA_PATH = file_path('images.yml').freeze
-  MATCHUPS_PATH = file_path('matchups.yml').freeze
-  MATCHUP_IDS_PATH = file_path('matchup_ids.yml').freeze
-  MATCHUP_ID_SUBSETS_PATH = file_path('matchup_id_sets.yml').freeze
-  VOTERS_PATH = file_path('voters.yml').freeze
-
-  @matchup_ids = load_data(MATCHUP_IDS_PATH)
-  @matchups = load_data(MATCHUPS_PATH)
-  @voters = load_data(VOTERS_PATH)
-
   class << self
-    def submit(new_id)
-      ids = load_data(IMAGE_DATA_PATH).keys
-      Rating.initial(new_id)
-      return if ids.size < 2
+    def submit(new_id, contest_id)
+      @image_data_path = data_path('images.yml', contest_id)
+      @matchup_ids_path = data_path('matchup_ids.yml', contest_id)
+      @matchups_path = data_path('matchups.yml', contest_id)
+      
+      @matchups = load_data(@matchups_path) || []
+      @matchup_ids = load_data(@matchup_ids_path) || []
+
+      ids = load_data(@image_data_path)
+      new_id = new_id.to_i
+      ids ? ids << new_id : ids = [new_id]
+      save(ids, @image_data_path)
+
+      Rating.initial(new_id, contest_id)
 
       old_size = @matchups.size
-      (ids.first...new_id).each { |id| @matchups << [new_id, id] }
+      ids[0...-1].each { |id| @matchups << [new_id, id] }
+
       current_size = @matchups.size
 
       @matchup_ids.concat([*old_size...current_size].shuffle)
+      @contest_id = contest_id
 
       save_matchup_ids
       update_matchup_sets(old_size, current_size)
-      save(@matchups, MATCHUPS_PATH)
+      save(@matchups, @matchups_path)
     end
 
-    def pair(user_id) 
-      return unless @matchups &&  @matchups.size > 0       
+    def path(filename, contest_id)
+      file_path(File.join(contest_id, filename))
+    end
+
+    def pair(user_id, contest_id = '')
+      @contest_id = contest_id
+      @matchups = load_data(path('matchups.yml', contest_id))
+
+      return unless @matchups &&  @matchups.size > 0
+      @matchup_ids_path = path('matchup_ids.yml', contest_id)
+      @matchup_ids = load_data(@matchup_ids_path)
+
+      @voters_path = path('voters.yml', contest_id)
+      @voters = load_data(@voters_path) || {}
+
       set_new_voter(user_id) if new_voter?(user_id)
 
       set_voter_matchup_ids(user_id) if voter_matchup_ids(user_id).empty?
@@ -39,7 +54,7 @@ class Matchup
       matchup_id = curr_matchup_ids.delete_at(rand(0...curr_matchup_ids.size))
       matchup = @matchups[matchup_id]
 
-      save(@voters, VOTERS_PATH)
+      save(@voters, @voters_path)
 
       random_order = rand(2)
       random_order.zero? ? matchup : matchup.reverse
@@ -51,14 +66,14 @@ class Matchup
 
     def set_new_voter(user_id)
       set_matchup_ids if @matchup_ids.empty?
-
-      id_sets = load_data(MATCHUP_ID_SUBSETS_PATH)
+      @id_sets_path = path('matchup_id_sets.yml', @contest_id)
+      id_sets = load_data(@id_sets_path)
       @voters[user_id] = { 'current_matchup_ids' => id_sets[0] }
       @voters[user_id]['current_matchups_set_id'] = 0
     end
 
     def set_voter_matchup_ids(user_id)
-      id_sets = load_data(MATCHUP_ID_SUBSETS_PATH)
+      id_sets = load_data(@id_sets_path)
       set_id = @voters[user_id]['current_matchups_set_id']
 
       return if set_id == id_sets.keys.max
@@ -70,9 +85,11 @@ class Matchup
       @voters[user_id]['current_matchup_ids']
     end
 
-    def delete_voter(user_id)
+    def delete_voter(user_id, contest_id)
+      voters_path = path('voters.yml', contest_id)
+      @voters = load_data(voters_path)
       @voters.delete(user_id)
-      save(@voters, VOTERS_PATH)
+      save(@voters, voters_path)
     end
 
     def set_matchup_ids
@@ -86,7 +103,7 @@ class Matchup
     end
 
     def save_matchup_ids
-      save(@matchup_ids, MATCHUP_IDS_PATH)
+      save(@matchup_ids, @matchup_ids_path)
     end
 
     def save_matchup_id_sets
@@ -103,11 +120,12 @@ class Matchup
         i += 1
       end
 
-      save(sets, MATCHUP_ID_SUBSETS_PATH)
+      save(sets, @matchup_id_sets)
     end
 
     def update_matchup_sets(start_idx, size)
-      id_sets = load_data(MATCHUP_ID_SUBSETS_PATH)
+      id_sets_path = path('matchup_id_sets.yml', @contest_id)
+      id_sets = load_data(id_sets_path) || {}
       i = 0
 
       (start_idx...size).each do |idx|
@@ -116,7 +134,7 @@ class Matchup
         i += 1
       end
 
-      save(id_sets, MATCHUP_ID_SUBSETS_PATH)
+      save(id_sets, id_sets_path)
     end
   end
 end

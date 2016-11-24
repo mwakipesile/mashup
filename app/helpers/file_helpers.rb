@@ -13,6 +13,11 @@ module Model
       File.join(data_path, file)
     end
 
+    def data_path(file, dir = nil)
+      path = dir ? File.join('data', dir) : 'data'
+      file_path(file, path)
+    end
+
     def save(data, path)
       File.open(path, 'w') { |file| file.write(data.to_yaml) }
     end

@@ -3,6 +3,7 @@
     <form action='/vote' method='post'>
       <input name='winner' id='winner' type='hidden' value='<%= @image_id %>'>
       <input name='loser' id='loser' type='hidden' value='<%= @image_id2 %>'>
+      <input name='contest' type='hidden' value='<%= @contest_id %>'>
       <button type="submit" class="vote">
         <img src='/uploads/<%= @image %>' />
       </button>  
@@ -14,6 +15,7 @@
     <form action='/vote' method='post'>
       <input name='winner' id='winner' type='hidden' value='<%= @image_id2 %>'>
       <input name='loser' id='loser' type='hidden' value='<%= @image_id %>'>
+      <input name='contest' type='hidden' value='<%= @contest_id %>'>
       <button type="submit" class="vote">
         <img src='/uploads/<%= @image2 %>' />
       </button>  

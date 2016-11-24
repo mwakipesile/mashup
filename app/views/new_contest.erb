@@ -1,0 +1,15 @@
+<form action='/contests/create' method='post'>
+  <dl>
+    <dt>
+      <label>Contest Name:</label>
+    </dt>
+    <dd>
+      <input name='contest' placeholder='Contest Name' type='text' value='<%= params[:contest] %>'>
+    </dd>
+  </dl>
+  
+  <fieldset class='actions'>
+    <input type='submit' value='Create Contest'>
+    <a href='/'>Cancel</a>
+  </fieldset>
+</form>

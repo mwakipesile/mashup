@@ -3,6 +3,8 @@ a {
   text-decoration: none; 
 }
 
+ul { list-style: none;}
+
 body {
   font: normal 20px "PT Sans", Helvetica, Arial, sans-serif;
   color: #3f3f3f;
@@ -46,8 +48,9 @@ body > header .actions span, body > header .actions .signout {
 
 main {
   display: block;
-  max-width: 1400px;
-  margin: 0 30px;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
 .dashboard-tabs {
@@ -114,13 +117,38 @@ main {
   text-align: center;
 }
 
-.top-images {
-  text-align: center;
-  max-width: 500px;
-  margin: 5px auto;
+/* Fake (pseudo) element, that enables vertical-align */
+#images li:before {
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+  height: 100%;
 }
 
-.top-images a img {
+#images li:before {
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+  height: 100%;
+}
+
+#images li .thumbnail {
+  display: inline-block;
+  width: 200px;
+  vertical-align: middle;
+  margin: 5px auto;
+  max-height: 350px;
+  overflow: hidden;
+}
+
+#images a img {
   width: 100%;
   padding: 20px 0;
+}
+
+#images form {
+  display: inline-block;
+  vertical-align: 100%;
+  width: 40%;
+  text-align: right;
 }

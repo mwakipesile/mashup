@@ -22,6 +22,26 @@ class Image
       imgs.size > 1 ? imgs : imgs.first
     end
 
+    def all
+      load_data(IMAGE_DATA_PATH)
+    end
+
+    def user_image_ids(user_id)
+      user_images_data = load_data(USER_IMAGE_DATA_PATH) || {}
+      user_images_data[user_id]
+    end
+
+    def user_images(user_id)
+      ids = user_image_ids(user_id)
+      return unless ids
+
+      images_data = load_data(IMAGE_DATA_PATH)
+
+      ids.each_with_object({}) do |id, images|
+        images[id] = images_data[id]['filename']
+      end
+    end
+
     def delete_user_images(user_id)
       images_data = load_data(IMAGE_DATA_PATH) || {}
       user_images_data = load_data(USER_IMAGE_DATA_PATH) || {}
@@ -40,8 +60,12 @@ class Image
     end
 
     def delete(image_id)
+      return unless image_id == image_id.to_i.to_s
+      image_id = image_id.to_i
+
       images_data = load_data(IMAGE_DATA_PATH) || {}
       user_images_data = load_data(USER_IMAGE_DATA_PATH) || {}
+
       return unless images_data[image_id]
 
       user_id = images_data[image_id]['user_id']

@@ -9,3 +9,11 @@ No matchups
     <% end %>
   </div>
 <% end %>
+
+<% content_for :submission do %>
+  <span class='submission'>
+    <a href='/contests/<%= @contest_id %>/submit'>
+      Submit image to this contest
+    </a>
+  </span>
+<% end %>

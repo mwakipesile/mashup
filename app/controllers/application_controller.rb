@@ -11,9 +11,5 @@ class ApplicationController < Sinatra::Base
     set :erb, escape_html: true
   end
 
-  before do
-    @top_images = Image.fetch(*Rating.top_image_ids)
-  end
-
   helpers Sinatra::ContentFor, Controller::Helpers, Controller::UserHelpers
 end

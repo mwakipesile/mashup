@@ -29,9 +29,10 @@ class MashupController < ApplicationController
   use UserController
   use ImagesController
   use VoteController
+  use ContestsController
   use DashboardController
 
-  get('/') { redirect('/matchup') }
+  get('/') { redirect('/contests') }
 
   run! if __FILE__ == $0
 end

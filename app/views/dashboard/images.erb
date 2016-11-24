@@ -1,0 +1,15 @@
+<ul id='images'>
+  <% @images.each do |image_id, image| %>
+    <li class='image'>
+      <span class='thumbnail'>
+        <a href='/dashboard/images/<%= image['filename'] %>'>
+          <img src='/uploads/<%= image['filename'] %>' />
+        </a>
+      </span>
+      <form action='/dashboard/images/<%= image_id %>/delete' method="post" class="delete">
+        <button type="submit">Delete</button>
+      </form>
+    </li>
+  <% end %>
+</ul>
+
