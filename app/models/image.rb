@@ -80,7 +80,7 @@ class Image
   end
 
   def upload
-    @filename = file[:filename]
+    @filename = file[:filename].gsub(/(?!\.)\W/, '-')
     save_image_data
     save_user_image_data
 
