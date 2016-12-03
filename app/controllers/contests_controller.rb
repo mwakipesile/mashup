@@ -44,7 +44,7 @@ class ContestsController < ApplicationController
     @image, @image2 = Image.fetch(@image_id, @image_id2)
     @rating, @rating2 = Rating.fetch(@image_id, @image_id2, contest_id)
 
-    erb :matchup
+    erb :contest
   end
 
   get('/contests/:contest_id/no_matchups') do |contest_id|
