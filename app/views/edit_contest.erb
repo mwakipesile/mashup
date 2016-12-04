@@ -1,0 +1,31 @@
+<section id='contest'>
+  <header>
+    <h2 class='edit'>Editing '<%= @contest %>'</h2>
+    <ul>
+      <li>
+        <form class='delete' action='/contests/<%= @contest_id %>/delete' method='post'>
+          <button type='submit' class='delete'>Delete Contest</button>
+        </form>
+      </li>
+    <ul>
+  </header>
+</section>
+
+<form action='/contests/<%= @contest_id %>/edit' method='post'>
+  <dl>
+    <dt>
+      <label for='contest_name'>Update the name of the contest:</label>
+    </dt>
+    <dd>
+      <input name='contest_name' type='text' value='<%= @updated_name || @contest %>'>
+    </dd>
+  </dl>
+  <fieldset class='actions'>
+    <input type='submit' value='Update'>
+    <a href='/contests/<%= @contest_id %>'>Cancel</a>
+  </fieldset>
+</form>
+
+<% content_for :header_link do %>
+  <a class='contest' href='/contests'>All Contests</a>
+<% end %>

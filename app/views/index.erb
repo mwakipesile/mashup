@@ -2,6 +2,9 @@
   <% @contests.each do |id, name| %>
     <li class='contest'>
       <a href='/contests/<%= id %>'><%= name %></a>
+      <%# if @user_id.casecmp('admin').zero? %>
+        <span class='edit'><a href='/contests/<%= id %>/edit'>Edit</a></li>
+      <%# end %>
     </li>
   <% end %>
 </ul>

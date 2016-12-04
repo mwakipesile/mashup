@@ -20,4 +20,5 @@ en:
   file_deleted: '%{var} has been deleted'
   restricted: 'You must be signed in to do that'
   admin_only: 'You must be an admin to access that area'
+  duplicate_name: 'That name has already been taken'
   

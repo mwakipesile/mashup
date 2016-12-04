@@ -23,13 +23,19 @@ class Contest
   end
 
   class << self   
-    def running
+    def running_contests
       load_data(CONTESTS_PATH) || {}
     end
 
     def fetch(id)
       contests = load_data(CONTESTS_PATH) || {}
       contests[id.to_i]
+    end
+
+    def rename(new_name, id)
+      @contests = load_data(CONTESTS_PATH)
+      @contests[id] = new_name
+      save(@contests, CONTESTS_PATH)
     end
   end
 end

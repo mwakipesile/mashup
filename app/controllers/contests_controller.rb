@@ -1,8 +1,12 @@
 #Matchup.submit(@image.id)
 
 class ContestsController < ApplicationController
+  before do
+    @user_id = session[:username] || request.ip
+  end
+
   get '/contests' do
-    @contests = Contest.running 
+    @contests = Contest.running_contests 
     erb :index
   end
 
@@ -18,15 +22,12 @@ class ContestsController < ApplicationController
 
   get '/contests/:contest_id/submit' do |contest_id|
     @contest_id = contest_id
-    @user_id = session[:username] || request.ip
     @user_images = Image.user_images(@user_id)
     erb :submission
   end
 
   post '/contests/:contest_id/submit' do |contest_id|
     image_id = params[:image_id]
-    # @user_id = session[:username] || request.ip
-    # @user_images = Image.user_images(@user_id)
     Matchup.submit(image_id, contest_id)
     redirect request.referrer
   end
@@ -37,8 +38,7 @@ class ContestsController < ApplicationController
     @top_images = Image.fetch(*Rating.top_image_ids(contest_id)) || []
     @contest_id = contest_id
     
-    user_id = session[:username] || request.ip
-    @image_id, @image_id2 = Matchup.pair(user_id, contest_id)
+    @image_id, @image_id2 = Matchup.pair(@user_id, contest_id)
     redirect("/contests/#{contest_id}/no_matchups") if @image_id.nil? || @image_id2.nil?
 
     @image, @image2 = Image.fetch(@image_id, @image_id2)
@@ -51,5 +51,25 @@ class ContestsController < ApplicationController
     @contest_id = contest_id
     @top_images = Image.fetch(*Rating.top_image_ids(@contest_id)) || []
     erb :no_matchups
+  end
+
+  get('/contests/:contest_id/edit') do |contest_id|
+    @contest_id = contest_id
+    @contest = Contest.fetch(contest_id)
+    erb :edit_contest
+  end
+
+  post('/contests/:contest_id/edit') do |contest_id|
+    @contest_id = contest_id.to_i
+    @updated_name = params[:contest_name]
+    @contests = Contest.running_contests
+
+    if @contests.any? { |_, name| name.casecmp(@updated_name).zero? }
+      flash_message('duplicate_name')
+      halt erb(:edit_contest)
+    end
+
+    Contest.rename(@updated_name, @contest_id)
+    redirect('/')
   end
 end
