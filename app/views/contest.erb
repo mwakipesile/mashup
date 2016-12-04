@@ -26,7 +26,9 @@
 
 <% content_for :leaderboard do %>
   <div class='leaderboard'>
-    <a class='title' href='/images/top'>Leaderboard</a>
+    <a class='title' href='/contests/<%= @contest_id %>/images/top'>
+      Leaderboard
+    </a>
     
     <% @top_images.each do |image| %>
       <span class='top-thumb'><a href='/images/<%= image %>'><img src='/uploads/<%= image %>' /></a></span>

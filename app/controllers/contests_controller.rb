@@ -1,5 +1,3 @@
-#Matchup.submit(@image.id)
-
 class ContestsController < ApplicationController
   before do
     @user_id = session[:username] || request.ip
@@ -45,6 +43,12 @@ class ContestsController < ApplicationController
     @rating, @rating2 = Rating.fetch(@image_id, @image_id2, contest_id)
 
     erb :contest
+  end
+
+  get '/contests/:contest_id/images/top' do |contest_id|
+    @contest_id = contest_id
+    @top_images = Image.fetch(*Rating.top_image_ids(@contest_id, 20)) || []
+    erb :leaderboard
   end
 
   get('/contests/:contest_id/no_matchups') do |contest_id|
