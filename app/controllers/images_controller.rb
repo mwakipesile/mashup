@@ -1,3 +1,4 @@
+# Images Controller
 class ImagesController < ApplicationController
   get('/files/upload') { erb :upload }
 

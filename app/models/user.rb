@@ -1,3 +1,4 @@
+# User model
 class User
   extend Model::FileHelpers
 

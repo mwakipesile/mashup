@@ -2,27 +2,28 @@ require 'yaml'
 require 'bcrypt'
 require 'pry'
 require 'sinatra/base'
-require 'sinatra/reloader' #if development?
+require 'sinatra/reloader'
 require 'sinatra/content_for'
 require 'tilt/erubis'
 
 # Load up all helpers first (NB)
-Dir[File.dirname(File.dirname(__FILE__)) + "/helpers/*.rb"].each do |file| 
+Dir[File.dirname(File.dirname(__FILE__)) + '/helpers/*.rb'].each do |file|
   require file
 end
 
 # Load up all models next
-Dir[File.dirname(File.dirname(__FILE__)) + "/models/*.rb"].each do |file|
+Dir[File.dirname(File.dirname(__FILE__)) + '/models/*.rb'].each do |file|
   require file
 end
 
 # DataMapper.finalize
 
 # Load up all controllers last
-Dir[File.dirname(__FILE__) + "/*.rb"].each do |file| 
+Dir[File.dirname(__FILE__) + '/*.rb'].each do |file|
   require file
 end
 
+# Main class/app's entry point
 class MashupController < ApplicationController
   # middleware will run before filters
   # Can also be ran using "use" in config.ru file.
@@ -37,5 +38,5 @@ class MashupController < ApplicationController
 
   get('/') { redirect('/contests') }
 
-  run! if __FILE__ == $0
+  run! if __FILE__ == $PROGRAM_NAME
 end

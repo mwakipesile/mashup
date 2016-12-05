@@ -1,3 +1,4 @@
+# Contests Controller
 class ContestsController < ApplicationController
   before do
     @user_id = session[:username] || request.ip
@@ -13,7 +14,7 @@ class ContestsController < ApplicationController
   end
 
   get '/contests' do
-    @contests = Contest.running_contests 
+    @contests = Contest.running_contests
     erb :index
   end
 
@@ -40,9 +41,9 @@ class ContestsController < ApplicationController
     redirect_contest_doesnt_exist unless @contest
 
     @top_images = Image.fetch(*Rating.top_image_ids(@contest_id)) || []
-    
+
     @image_id, @image_id2 = Matchup.pair(@user_id, @contest_id)
-    halt(erb :no_matchups) if @image_id.nil? || @image_id2.nil?
+    halt(erb(:no_matchups)) if @image_id.nil? || @image_id2.nil?
 
     @image, @image2 = Image.fetch(@image_id, @image_id2)
     @rating, @rating2 = Rating.fetch(@image_id, @image_id2, @contest_id)
@@ -55,7 +56,7 @@ class ContestsController < ApplicationController
     erb :leaderboard
   end
 
-  get '/contests/:contest_id/edit' { erb :edit_contest }
+  get('/contests/:contest_id/edit') { erb :edit_contest }
 
   post '/contests/:contest_id/edit' do
     @updated_name = params[:contest_name]

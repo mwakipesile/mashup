@@ -1,4 +1,6 @@
+# Controller helpers
 module Controller
+  # User helpers
   module UserHelpers
     def encrypt(password)
       BCrypt::Password.create(password)
@@ -22,7 +24,7 @@ module Controller
     end
 
     def signed_in?
-      !!session[:username]
+      session[:username]
     end
 
     def admin?

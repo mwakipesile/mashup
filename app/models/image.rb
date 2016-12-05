@@ -1,9 +1,10 @@
+# Image model
 class Image
   extend Model::FileHelpers
 
-  IMAGE_PATH = 'public/uploads'
-  IMAGE_DATA_PATH = file_path('images.yml')
-  USER_IMAGE_DATA_PATH = file_path('user_images.yml')
+  IMAGE_PATH = 'public/uploads'.freeze
+  IMAGE_DATA_PATH = file_path('images.yml').freeze
+  USER_IMAGE_DATA_PATH = file_path('user_images.yml').freeze
 
   attr_reader :file, :user_id, :images_data, :user_image_data, :image_id
 
@@ -60,7 +61,7 @@ class Image
     end
 
     def delete(image_id)
-      return unless image_id == image_id.to_i.to_s
+      return unless valid_id?(image_id)
       image_id = image_id.to_i
 
       images_data = load_data(IMAGE_DATA_PATH) || {}
@@ -76,6 +77,10 @@ class Image
 
       save(user_images_data, USER_IMAGE_DATA_PATH)
       save(images_data, IMAGE_DATA_PATH)
+    end
+
+    def valid_id?(id)
+      id == id.to_i.to_s
     end
   end
 

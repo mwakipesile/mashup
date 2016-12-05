@@ -18,3 +18,16 @@ jaribu:
   - 56
   - 70
   current_matchups_set_id: 0
+eddie:
+  current_matchup_ids:
+  - 0
+  - 1
+  - 4
+  - 6
+  - 19
+  - 24
+  - 39
+  - 45
+  - 56
+  - 70
+  current_matchups_set_id: 0

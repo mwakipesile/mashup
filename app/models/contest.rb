@@ -1,3 +1,4 @@
+# Contest Model
 class Contest
   extend Model::FileHelpers
 
@@ -17,12 +18,12 @@ class Contest
     self.class.save(@contests, CONTESTS_PATH)
   end
 
-  def contest_id   
+  def contest_id
     return 0 if @contests.empty?
     @contests.keys.max + 1
   end
 
-  class << self   
+  class << self
     def running_contests
       load_data(CONTESTS_PATH) || {}
     end
@@ -39,4 +40,3 @@ class Contest
     end
   end
 end
-

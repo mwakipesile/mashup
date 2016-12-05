@@ -1,3 +1,4 @@
+# Ratings model
 class Rating
   extend Model::FileHelpers
 
@@ -5,7 +6,6 @@ class Rating
   INITIAL_RATING = 1600
   DEFAULT_TOP_COUNT = 5
   K = 24
-
 
   class << self
     def load_ratings(contest_id)
@@ -39,11 +39,11 @@ class Rating
     end
 
     def calculate_ratings
-      winner_tr = 10**(@winner_rating/400.0)
-      loser_tr = 10**(@loser_rating/400.0)
+      winner_tr = 10**(@winner_rating / 400.0)
+      loser_tr = 10**(@loser_rating / 400.0)
 
       winner_ev = winner_tr / (winner_tr + loser_tr)
-      elo = (K*(1 - winner_ev)).round(2)
+      elo = (K * (1 - winner_ev)).round(2)
 
       [@winner_rating + elo, @loser_rating - elo]
     end

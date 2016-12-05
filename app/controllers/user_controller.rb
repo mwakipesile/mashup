@@ -1,3 +1,4 @@
+# User Controller
 class UserController < ApplicationController
   before %r{/users\/sign(?:up|in)} do
     pass if request.get?

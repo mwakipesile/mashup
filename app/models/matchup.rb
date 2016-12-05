@@ -1,3 +1,4 @@
+# Matchups model
 class Matchup
   extend Model::FileHelpers
 
@@ -49,23 +50,23 @@ class Matchup
       set_up_data_paths
       load_matchups_data
 
-      return unless @matchups &&  @matchups.size > 0
+      return unless @matchups && !@matchups.empty?
 
       @voters = load_data(@voters_path) || {}
 
       set_new_voter if new_voter?
       set_voter_matchup_ids if voter_matchup_ids.empty?
-      matchup = get_a_matchup
+      matchup = a_matchup
       return unless matchup
 
       random_order = rand(2)
       random_order.zero? ? matchup : matchup.reverse
     end
 
-    def get_a_matchup
+    def a_matchup
       curr_matchup_ids = voter_matchup_ids
       return if curr_matchup_ids.empty?
-      
+
       matchup_id = curr_matchup_ids.delete_at(rand(0...curr_matchup_ids.size))
       save(@voters, @voters_path)
       @matchups[matchup_id]

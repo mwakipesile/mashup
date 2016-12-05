@@ -1,10 +1,12 @@
+# Model helpers
 module Model
+  # File helpers
   module FileHelpers
     def base_path
       File.expand_path('../../..', __FILE__)
     end
 
-    def load_data(file_path) 
+    def load_data(file_path)
       YAML.load_file(file_path)
     end
 

@@ -1,3 +1,4 @@
+# Voting controller
 class VoteController < ApplicationController
   post '/vote' do
     winner_id = params[:winner]

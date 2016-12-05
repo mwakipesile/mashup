@@ -1,5 +1,6 @@
+# Dashboard Controller
 class DashboardController < ApplicationController
-  before %r{/(dashboard$|dashboard/.*)} do 
+  before %r{/(dashboard$|dashboard/.*)} do
     pass if admin?
     redirect_unauthorized_user('admin_only')
   end
