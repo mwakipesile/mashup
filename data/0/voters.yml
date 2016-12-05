@@ -5,3 +5,16 @@ admin:
 127.0.0.1:
   current_matchup_ids: []
   current_matchups_set_id: 11
+jaribu:
+  current_matchup_ids:
+  - 1
+  - 4
+  - 6
+  - 19
+  - 24
+  - 35
+  - 39
+  - 45
+  - 56
+  - 70
+  current_matchups_set_id: 0

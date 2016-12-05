@@ -34,7 +34,7 @@ class Contest
 
     def rename(new_name, id)
       @contests = load_data(CONTESTS_PATH)
-      @contests[id] = new_name
+      @contests[id.to_i] = new_name
       save(@contests, CONTESTS_PATH)
     end
   end

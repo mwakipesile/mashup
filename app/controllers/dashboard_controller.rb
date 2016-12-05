@@ -1,8 +1,4 @@
 class DashboardController < ApplicationController
-  before %r{/(.+)/$} do |path|
-    redirect(path)
-  end
-
   before %r{/(dashboard$|dashboard/.*)} do 
     pass if admin?
     redirect_unauthorized_user('admin_only')

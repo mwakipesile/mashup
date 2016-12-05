@@ -8,17 +8,17 @@ module Controller
       BCrypt::Password.new(encrypted_password) == password
     end
 
-    def invalid_username(username)
+    def invalid_username
       users = User.all
-      return flash_message('username_too_short') if username.size < 2
-      return flash_message('username_invalid_chars') if username =~ /\W/
-      return flash_message('username_taken') if users[username]
+      return flash_message('username_too_short') if @username.size < 2
+      return flash_message('username_invalid_chars') if @username =~ /\W/
+      return flash_message('username_taken') if users[@username]
     end
 
-    def invalid_password(password, password2)
-      return flash_message('password_too_short') if password.size < 4
-      return flash_message('password_invalid_chars') unless password =~ /\w+/
-      return flash_message('passwords_dont_match') if password != password2
+    def invalid_password
+      return flash_message('password_too_short') if @password.size < 4
+      return flash_message('password_invalid_chars') unless @password =~ /\w+/
+      return flash_message('passwords_dont_match') if @password != @password2
     end
 
     def signed_in?

@@ -41,3 +41,17 @@ mellarose:
     cost: 10
     salt: "$2a$10$oQ1V4gmwXtYYOsJcvPyUuO"
     checksum: zCgx8kc6/3EjGByLOgdXcgjifhvTX1O
+jaribu:
+  password: !ruby/string:BCrypt::Password
+    str: "$2a$10$om4Edqo2WQLd/DP1B1q4tuZmPSpEl/RSfG4QPIDS21vtVuWWkLMg."
+    version: 2a
+    cost: 10
+    salt: "$2a$10$om4Edqo2WQLd/DP1B1q4tu"
+    checksum: ZmPSpEl/RSfG4QPIDS21vtVuWWkLMg.
+eddie:
+  password: !ruby/string:BCrypt::Password
+    str: "$2a$10$osNt2clGRUoIER23c8G4veMTPK37GPplmT8Vyxhc/GPH0G8hK7B0e"
+    version: 2a
+    cost: 10
+    salt: "$2a$10$osNt2clGRUoIER23c8G4ve"
+    checksum: MTPK37GPplmT8Vyxhc/GPH0G8hK7B0e

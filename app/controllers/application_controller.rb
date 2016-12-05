@@ -11,5 +11,8 @@ class ApplicationController < Sinatra::Base
     set :erb, escape_html: true
   end
 
-  helpers Sinatra::ContentFor, Controller::Helpers, Controller::UserHelpers
+  helpers Sinatra::ContentFor,
+    Controller::Helpers,
+    Controller::UserHelpers,
+    Controller::ContestHelpers
 end

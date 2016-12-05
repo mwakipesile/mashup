@@ -32,6 +32,9 @@ class MashupController < ApplicationController
   use ContestsController
   use DashboardController
 
+  # Permanently redirect URL with trailing "/" to URL without it
+  before(%r{/(.+)/$}) { |path| redirect(path, 301) }
+
   get('/') { redirect('/contests') }
 
   run! if __FILE__ == $0

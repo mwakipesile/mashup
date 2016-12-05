@@ -21,4 +21,5 @@ en:
   restricted: 'You must be signed in to do that'
   admin_only: 'You must be an admin to access that area'
   duplicate_name: 'That name has already been taken'
+  no_contest: 'Contest with that ID does not exist'
   
