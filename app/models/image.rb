@@ -19,7 +19,7 @@ class Image
   class << self
     def fetch(*ids)
       data = load_data(IMAGE_DATA_PATH)
-      imgs = ids.each_with_object([]) { |id, arr| arr << data[id]['filename'] }
+      imgs = ids.map { |id| data[id]['filename'] if data[id] }
       imgs.size > 1 ? imgs : imgs.first
     end
 

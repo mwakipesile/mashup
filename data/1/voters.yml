@@ -1,8 +1,19 @@
 ---
 127.0.0.1:
   current_matchup_ids: []
-  current_matchups_set_id: 1
+  current_matchups_set_id: 3
 eddie:
-  current_matchup_ids:
-  - 1
-  current_matchups_set_id: 0
+  current_matchup_ids: []
+  current_matchups_set_id: 2
+jaribu:
+  current_matchup_ids: []
+  current_matchups_set_id: 3
+admin:
+  current_matchup_ids: []
+  current_matchups_set_id: 2
+digya:
+  current_matchup_ids: []
+  current_matchups_set_id: 2
+kitoko:
+  current_matchup_ids: []
+  current_matchups_set_id: 3

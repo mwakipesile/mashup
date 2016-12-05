@@ -55,25 +55,41 @@ class Matchup
       @voters = load_data(@voters_path) || {}
 
       set_new_voter if new_voter?
-      set_voter_matchup_ids if voter_matchup_ids.empty?
-      matchup = a_matchup
-      return unless matchup
-
-      random_order = rand(2)
-      random_order.zero? ? matchup : matchup.reverse
+      set_voter_matchup_ids if @voters[@user_id]['current_matchup_ids'].empty?
+      a_matchup
     end
 
     def a_matchup
-      curr_matchup_ids = voter_matchup_ids
-      return if curr_matchup_ids.empty?
+      matchup_ids = @voters[@user_id]['current_matchup_ids']
+      matchup_id = nil
 
-      matchup_id = curr_matchup_ids.delete_at(rand(0...curr_matchup_ids.size))
-      save(@voters, @voters_path)
-      @matchups[matchup_id]
+      loop do
+        return if matchup_ids.empty?
+
+        matchup_id = matchup_ids.delete_at(rand(0...matchup_ids.size))
+        save(@voters, @voters_path)
+
+        matchup = @matchups[matchup_id]
+        break if matchup
+      end
+
+      [matchup_id, @matchups[matchup_id]]
     end
 
-    def voter_matchup_ids
-      @voters[@user_id]['current_matchup_ids']
+    def clear(matchup_id, contest_id, removed_image_ids)
+      binding.pry
+      matchups_path = data_path('matchups.yml', contest_id)
+      matchups = load_data(matchups_path)
+      image_data_path = data_path('images.yml', contest_id)
+      image_ids = load_data(image_data_path)
+
+      return unless matchups && matchups[matchup_id]
+
+      matchups[matchup_id] = nil
+      save(matchups, matchups_path)
+
+      removed_image_ids.each { |id| image_ids.delete(id) }
+      save(image_ids, image_data_path)
     end
 
     def new_voter?

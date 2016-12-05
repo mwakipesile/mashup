@@ -42,10 +42,21 @@ class ContestsController < ApplicationController
 
     @top_images = Image.fetch(*Rating.top_image_ids(@contest_id)) || []
 
-    @image_id, @image_id2 = Matchup.pair(@user_id, @contest_id)
-    halt(erb(:no_matchups)) if @image_id.nil? || @image_id2.nil?
+    loop do
+      matchup_id, image_ids = Matchup.pair(@user_id, @contest_id)
+      halt(erb(:no_matchups)) unless image_ids
+      @image_id, @image_id2 = image_ids.shuffle
 
-    @image, @image2 = Image.fetch(@image_id, @image_id2)
+      @image, @image2 = Image.fetch(@image_id, @image_id2)
+      break if @image && @image2
+
+      image_ids.select! do |id|
+        id == @image_id && !@image || id == @image_id2 && !@image2
+      end
+      Matchup.clear(matchup_id, @contest_id, image_ids)
+      Rating.delete(*image_ids, @contest_id)
+    end
+
     @rating, @rating2 = Rating.fetch(@image_id, @image_id2, @contest_id)
 
     erb :contest

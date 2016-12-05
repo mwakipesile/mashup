@@ -66,5 +66,11 @@ class Rating
       load_ratings(contest_id)
       @ratings.keys.sort_by { |id| -@ratings[id]['rating'] }.first(n)
     end
+
+    def delete(*image_ids, contest_id)
+      load_ratings(contest_id)
+      image_ids.each { |id| @ratings.delete(id.to_i) }
+      save(@ratings, @ratings_path)
+    end
   end
 end
