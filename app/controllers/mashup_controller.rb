@@ -16,8 +16,6 @@ Dir[File.dirname(File.dirname(__FILE__)) + '/models/*.rb'].each do |file|
   require file
 end
 
-# DataMapper.finalize
-
 # Load up all controllers last
 Dir[File.dirname(__FILE__) + '/*.rb'].each do |file|
   require file
