@@ -55,9 +55,7 @@ class ContestsController < ApplicationController
     erb :leaderboard
   end
 
-  get '/contests/:contest_id/edit' do
-    erb :edit_contest
-  end
+  get '/contests/:contest_id/edit' { erb :edit_contest }
 
   post '/contests/:contest_id/edit' do
     @updated_name = params[:contest_name]

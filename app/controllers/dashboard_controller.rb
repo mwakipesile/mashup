@@ -10,9 +10,7 @@ class DashboardController < ApplicationController
     end
   end
 
-  get '/dashboard' do
-    derb :dashboard
-  end
+  get('/dashboard') { derb :dashboard }
 
   get '/dashboard/users' do
     @users = User.all_names
