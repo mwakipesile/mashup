@@ -28,6 +28,12 @@ class ContestsController < ApplicationController
 
   get '/contests/:contest_id/submit' do
     @user_images = Image.user_images(@user_id)
+
+    unless @user_images
+      flash_message('no_user_images')
+      halt erb :upload
+    end
+
     erb :submission
   end
 

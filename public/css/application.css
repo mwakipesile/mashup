@@ -26,6 +26,14 @@ body > header .actions a:hover, .leaderboard a.title:hover {
   color: #dd5f4f; 
 }
 
+.flash {
+  max-width: 960px;
+  padding: 10px 20px;
+  margin: 20px auto 1.5em auto;
+  color: #3399cc;
+  background: #CBE5F2; 
+}
+
 .leaderboard {
   text-align: center;
   margin: 20px;

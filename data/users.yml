@@ -55,3 +55,10 @@ eddie:
     cost: 10
     salt: "$2a$10$osNt2clGRUoIER23c8G4ve"
     checksum: MTPK37GPplmT8Vyxhc/GPH0G8hK7B0e
+longo:
+  password: !ruby/string:BCrypt::Password
+    str: "$2a$10$OXYsVIXD.HMIJDWVKHTake4kxWi1Fc.pBMPckvfB6tcgeyzxCY9r."
+    version: 2a
+    cost: 10
+    salt: "$2a$10$OXYsVIXD.HMIJDWVKHTake"
+    checksum: 4kxWi1Fc.pBMPckvfB6tcgeyzxCY9r.
